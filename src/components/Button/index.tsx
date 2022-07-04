@@ -1,15 +1,13 @@
 import React from 'react'
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button'
 
 interface Props {
-	variant?: String
-	label: String
+  variant?: 'text' | 'contained' | 'outlined' | undefined
+  label: string
 }
 
 const CustomButton = (props: Props) => {
-	return (
-		<Button variant='outlined' >Button</Button>
-	)
+  return <Button variant={props.variant}>{props.label}</Button>
 }
 
 export default CustomButton

@@ -1,9 +1,20 @@
-import React from "react";
+import React from 'react'
+import { Header } from '../../components'
+import { Route } from 'react-router-dom'
 
-type Props = {};
+type Props = {
+  path?: string
+  element?: any
+  children?: any
+}
 
 const PrivateRoute = (props: Props) => {
-  return <div>PrivateRoute</div>;
-};
+  return (
+    <>
+      <Header />
+      <Route path={props.path} element={props.element} />
+    </>
+  )
+}
 
-export default PrivateRoute;
+export default PrivateRoute
