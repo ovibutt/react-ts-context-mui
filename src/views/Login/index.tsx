@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react'
 
-type Props = {};
+type Props = {}
 
-function Login({}: Props) {
+function Login(props: Props) {
   return (
     <>
       <div>Login</div>
     </>
-  );
+  )
 }
 
-export default Login;
+export default Login

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
-type Props = {};
+type Props = {}
 
-function SignUp({}: Props) {
-  return <div>SignUp</div>;
+function SignUp(props: Props) {
+  return <div>SignUp</div>
 }
 
-export default SignUp;
+export default SignUp

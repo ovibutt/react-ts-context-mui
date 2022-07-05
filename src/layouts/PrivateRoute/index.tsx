@@ -1,5 +1,4 @@
 import React from 'react'
-import { Header } from '../../components'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 type Props = {
