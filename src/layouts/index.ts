@@ -1,2 +1,2 @@
-export { default as PrivateRoute } from "./PrivateRoute/index";
-export { default as PublicRoute } from "./PublicRoute/index";
+export { default as PrivateRoute } from './PrivateRoute/index'
+export { default as AppLayout } from './AppLayout/index'

@@ -34,7 +34,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         <div>
           <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" minHeight="60vh">
             <Typography variant="h3">
-              <div>OOps!!! Something went wrong</div>
+              <div>Oops!!! Something went wrong</div>
             </Typography>
             {process.env.REACT_APP_ENV === 'development' && (
               <Box>

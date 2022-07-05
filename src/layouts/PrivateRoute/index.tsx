@@ -1,19 +1,27 @@
 import React from 'react'
 import { Header } from '../../components'
-import { Route } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 type Props = {
   path?: string
   element?: any
   children?: any
+  allowedRoles?: any
 }
 
 const PrivateRoute = (props: Props) => {
-  return (
-    <>
-      <Header />
-      <Route path={props.path} element={props.element} />
-    </>
+  const auth = {
+    roles: [2],
+    user: true,
+  }
+  const location = useLocation()
+
+  return auth?.roles?.find((role) => props.allowedRoles?.includes(role)) ? (
+    <Outlet />
+  ) : auth?.user ? (
+    <Navigate to="/unauthorized" state={{ from: location }} replace />
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
   )
 }
 
