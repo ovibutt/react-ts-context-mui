@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, styled, TextField, Typography, Button, Link } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { AccountCircle, Password } from '@mui/icons-material'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Wrapper = styled('div')({
   backgroundColor: '#282c34',
