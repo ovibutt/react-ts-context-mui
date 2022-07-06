@@ -1,12 +1,9 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
-  typography: {
-    fontFamily: "Proxima Nova",
-  },
   palette: {
     primary: {
-      main: "#4D7CFE",
+      main: '#282c34',
     },
   },
   breakpoints: {
@@ -18,5 +15,5 @@ const theme = createTheme({
       xl: 1920,
     },
   },
-});
-export default theme;
+})
+export default theme

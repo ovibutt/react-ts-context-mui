@@ -5,21 +5,25 @@ import reportWebVitals from './reportWebVitals'
 import AppRoutes from './routes'
 import { ErrorBoundary } from './views'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { ThemeProvider } from '@mui/material/styles'
+import { StyledEngineProvider, ThemeProvider, CssBaseline } from '@mui/material'
 import theme from './assets/theme'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <ErrorBoundary>
-          <Routes>
-            <Route path="/*" element={<AppRoutes />} />
-          </Routes>
-        </ErrorBoundary>
-      </BrowserRouter>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <BrowserRouter>
+            <ErrorBoundary>
+              <Routes>
+                <Route path="/*" element={<AppRoutes />} />
+              </Routes>
+            </ErrorBoundary>
+          </BrowserRouter>
+        </CssBaseline>
+      </ThemeProvider>
+    </StyledEngineProvider>
   </React.StrictMode>
 )
 
