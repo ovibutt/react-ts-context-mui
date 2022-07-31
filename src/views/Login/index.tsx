@@ -1,8 +1,10 @@
+import React from 'react'
 import { Box, styled, TextField, Typography, Button, Link } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import React from 'react'
 import { AccountCircle, Password } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
+import { loginUser } from '../../services/userServices'
+import { useMutation } from '@tanstack/react-query'
 
 const Wrapper = styled('div')({
   backgroundColor: '#282c34',
@@ -33,9 +35,7 @@ const Form = styled('form')({
   width: '100%',
 })
 
-type Props = {}
-
-function Login(props: Props) {
+function Login() {
   const navigate = useNavigate()
   const {
     register,
@@ -43,10 +43,22 @@ function Login(props: Props) {
     formState: { errors },
   } = useForm()
   const onSubmit = (data: any) => {
-    const { username, password } = data
-    console.log(data)
-    if (username === 'admin' && password === '123456') navigate('/')
+    mutate(data)
   }
+
+  const { mutate } = useMutation(loginUser, {
+    onSuccess: (res: any) => {
+      console.log(res)
+      if (res.status === 200) {
+        navigate('/')
+      } else {
+        alert(res.data.error)
+      }
+    },
+    onError: () => {
+      alert('there was an error')
+    },
+  })
 
   return (
     <Wrapper>

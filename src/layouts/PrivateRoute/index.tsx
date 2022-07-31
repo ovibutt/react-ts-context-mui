@@ -11,7 +11,7 @@ type Props = {
 
 const PrivateRoute = (props: Props) => {
   const auth = {
-    roles: [2],
+    roles: [1],
     user: true,
   }
   const location = useLocation()

@@ -6,24 +6,31 @@ import AppRoutes from './routes'
 import { ErrorBoundary } from './views'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { StyledEngineProvider, ThemeProvider, CssBaseline } from '@mui/material'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import theme from './assets/theme'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+const queryClient = new QueryClient()
+
 root.render(
   <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <CssBaseline>
-          <BrowserRouter>
-            <ErrorBoundary>
-              <Routes>
-                <Route path="/*" element={<AppRoutes />} />
-              </Routes>
-            </ErrorBoundary>
-          </BrowserRouter>
-        </CssBaseline>
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline>
+            <BrowserRouter>
+              <ErrorBoundary>
+                <Routes>
+                  <Route path="/*" element={<AppRoutes />} />
+                </Routes>
+              </ErrorBoundary>
+            </BrowserRouter>
+          </CssBaseline>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 )
 

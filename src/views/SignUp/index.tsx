@@ -3,6 +3,8 @@ import { Box, styled, TextField, Typography, Button, Link } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { AccountCircle, Password } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { signupUser } from '../../services/userServices'
 
 const Wrapper = styled('div')({
   backgroundColor: '#282c34',
@@ -33,19 +35,28 @@ const Form = styled('form')({
   width: '100%',
 })
 
-type Props = {}
-
-function SignUp(props: Props) {
+function SignUp() {
   const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log(data)
-    navigate('/')
+    mutate(data)
   }
+
+  const { mutate } = useMutation(signupUser, {
+    onSuccess: (data) => {
+      console.log(data)
+      navigate('/')
+    },
+    onError: () => {
+      alert('there was an error')
+    },
+  })
 
   return (
     <Wrapper>
