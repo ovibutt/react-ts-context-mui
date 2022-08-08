@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { AccountCircle, Password } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { loginUser } from '../../services/userServices'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const Wrapper = styled('div')({
   backgroundColor: '#282c34',
@@ -37,6 +37,8 @@ const Form = styled('form')({
 
 function Login() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
+
   const {
     register,
     handleSubmit,
@@ -50,6 +52,7 @@ function Login() {
     onSuccess: (res: any) => {
       console.log(res)
       if (res.status === 200) {
+        queryClient.setQueryData(['user'], res.data)
         navigate('/')
       } else {
         alert(res.data.error)

@@ -3,7 +3,7 @@ import { List, ListItem, ListItemIcon, ListItemText, Checkbox, Divider, Typograp
 import { Delete, Edit } from '@mui/icons-material'
 import AlertDialog from '../AlertDialog'
 import TodoModal from '../TodoModal'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteTodo, editTodo } from '../../services/todoServices'
 import { TodoI } from '../../types/TodoTypes'
 
@@ -22,6 +22,7 @@ function TodoList({ todoListData }: TodoListProps) {
   const [editTodoModal, setEditTodoModal] = useState(false)
   const [editTodoData, setEditTodoData] = useState({} as TodoI)
   const [deleteTodoId, setDeleteTodoId] = useState(0)
+  const queryClient = useQueryClient()
 
   const { mutate } = useMutation(deleteTodo, {
     onSuccess: (res: any) => {
@@ -41,6 +42,7 @@ function TodoList({ todoListData }: TodoListProps) {
     onSuccess: (res: any) => {
       console.log(res)
       if (res.status === 200) {
+        queryClient.invalidateQueries(['todos'])
         setEditTodoModal(false)
       } else {
         alert(res.data.error)

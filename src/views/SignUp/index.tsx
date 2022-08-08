@@ -3,7 +3,7 @@ import { Box, styled, TextField, Typography, Button, Link } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { AccountCircle, Password } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { signupUser } from '../../services/userServices'
 
 const Wrapper = styled('div')({
@@ -37,6 +37,7 @@ const Form = styled('form')({
 
 function SignUp() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const {
     register,
@@ -49,8 +50,9 @@ function SignUp() {
   }
 
   const { mutate } = useMutation(signupUser, {
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       console.log(data)
+      queryClient.setQueryData(['user'], data.data)
       navigate('/')
     },
     onError: () => {

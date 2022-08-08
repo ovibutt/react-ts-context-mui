@@ -80,7 +80,7 @@ function TodoModal({ modalOpen, toggleModal, onSave, editData }: TodoModalProps)
             variant="standard"
             fullWidth={true}
             multiline={true}
-            minRows={2}
+            minRows={1}
             maxRows={5}
             color="secondary"
             sx={{ marginTop: 5 }}

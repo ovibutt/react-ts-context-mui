@@ -3,18 +3,20 @@ import { CircularProgress, Fab, Typography } from '@mui/material'
 import { Add } from '@mui/icons-material'
 import { TodoModal, TodoList } from '../../components'
 import { useState } from 'react'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { createTodo, getAllTodo } from '../../services/todoServices'
 
 function Home() {
   const [createTodoModalOpen, setCreateTodoModalOpen] = useState(false)
   const { isLoading, data: allTodos } = useQuery(['todos'], getAllTodo)
+  const queryClient = useQueryClient()
 
   const { mutate } = useMutation(createTodo, {
     onSuccess: (res: any) => {
       console.log(res)
       if (res.status === 200) {
         // navigate('/')
+        queryClient.invalidateQueries(['todos'])
         setCreateTodoModalOpen(false)
       } else {
         alert(res.data.error)
