@@ -12,9 +12,16 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import { Mail, ChevronLeft, ChevronRight, Inbox, Menu } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
+import { Mail, ChevronLeft, ChevronRight, Inbox, Menu, Home, Logout, Person } from '@mui/icons-material'
 
 const drawerWidth = 240
+
+const navMenuItems = [
+  { label: 'Home', icon: <Home />, to: '/' },
+  { label: 'Profile', icon: <Person />, to: '/profile' },
+  { label: 'Logout', icon: <Logout />, to: '/login' },
+]
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -92,6 +99,7 @@ type HeaderProps = {
 export default function Header(props: HeaderProps) {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
+  const navigate = useNavigate()
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -129,8 +137,8 @@ export default function Header(props: HeaderProps) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Home', 'Logout'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {navMenuItems.map((item) => (
+            <ListItem key={item.label} disablePadding sx={{ display: 'block' }} onClick={() => navigate(item.to)}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -143,9 +151,9 @@ export default function Header(props: HeaderProps) {
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
                   }}>
-                  {index % 2 === 0 ? <Inbox /> : <Mail />}
+                  {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}

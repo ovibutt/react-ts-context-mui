@@ -1,5 +1,11 @@
-export interface NewTodo {
+export interface TodoI {
+  id?: number
   title: string
   description: string
-  done: boolean
+  isDone: boolean
+}
+export interface TodoResponse {
+  status: string
+  statusMessage: string
+  data: []
 }

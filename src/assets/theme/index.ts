@@ -5,6 +5,9 @@ const theme = createTheme({
     primary: {
       main: '#282c34',
     },
+    secondary: {
+      main: '#fff',
+    },
   },
   breakpoints: {
     values: {

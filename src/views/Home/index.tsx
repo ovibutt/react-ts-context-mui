@@ -1,17 +1,40 @@
-import React from 'react'
-import logo from '../../assets/icons/logo.svg'
 import './Home.css'
-import CustomButton from '../../components/Button'
+import { CircularProgress, Fab, Typography } from '@mui/material'
+import { Add } from '@mui/icons-material'
+import { TodoModal, TodoList } from '../../components'
+import { useState } from 'react'
+import { useQuery, useMutation } from '@tanstack/react-query'
+import { createTodo, getAllTodo } from '../../services/todoServices'
 
-type HomeProps = {}
+function Home() {
+  const [createTodoModalOpen, setCreateTodoModalOpen] = useState(false)
+  const { isLoading, data: allTodos } = useQuery(['todos'], getAllTodo)
 
-function Home(props: HomeProps) {
+  const { mutate } = useMutation(createTodo, {
+    onSuccess: (res: any) => {
+      console.log(res)
+      if (res.status === 200) {
+        // navigate('/')
+        setCreateTodoModalOpen(false)
+      } else {
+        alert(res.data.error)
+      }
+    },
+    onError: () => {
+      alert('there was an error')
+    },
+  })
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <CustomButton label={'Button'} />
-      </header>
+      <Typography variant="h2" fontWeight={'500'} color="white">
+        Todo List
+      </Typography>
+      {isLoading ? <CircularProgress /> : <TodoList todoListData={allTodos?.data} />}
+      <Fab color="primary" aria-label="add" className="fab-button" onClick={() => setCreateTodoModalOpen(true)}>
+        <Add />
+      </Fab>
+      <TodoModal modalOpen={createTodoModalOpen} toggleModal={setCreateTodoModalOpen} onSave={mutate} />
     </div>
   )
 }
